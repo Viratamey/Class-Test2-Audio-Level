@@ -7,3 +7,26 @@
 ![screenshot_20171010-155049](https://user-images.githubusercontent.com/30778983/31386930-2e3ea67e-ade6-11e7-9a79-25907e06e183.jpg)
 
 
+#Algorithm
+ public double soundDb(double ampl){
+        return 20*Math.log10(getAmplitudeEMA()/ampl);
+    }
+
+    public double getAmplitude(){
+        if(mediaRecorder != null){
+            return (mediaRecorder.getMaxAmplitude());
+        }else
+            return (int) mEMA;
+    }
+
+    public double getAmplitudeEMA(){
+        double amp = getAmplitude();
+        mEMA = EMA_FILTER*amp + (1.0 - EMA_FILTER)*mEMA; //filtering y(n) = a*x + b*y(n-1)
+        return (int) mEMA;
+    }
+    
+    for this project we have taken ampl = 1, mEMA = 0.0, EMA_FILTER = 0.6;
+    for default getAmplitudeEMA() = 0 so its log gives -infinity which we can see in one of the screenshot
+    our threshold Audio level is 69dB in screenshots but uploaded code has threshold 80dB,which we can change by just changing the value of variable "threshold" in code
+    
+    
